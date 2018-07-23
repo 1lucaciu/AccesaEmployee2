@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -11,6 +13,8 @@ namespace AccesaEmployee
 {
     class Program
     {
+        private static object videogameRatings;
+
         static void Main(string[] args)
         {
             OfficeManagement officeManagement = new OfficeManagement();
@@ -31,33 +35,58 @@ namespace AccesaEmployee
             officeManagement.DisplayAllEmployees();
             XmlWriterSettings settings = new XmlWriterSettings();
             settings.Indent = true;
-            using (XmlWriter writer = XmlWriter.Create(@"c:\temp\temp.xml", settings))
+            settings.OmitXmlDeclaration = true;
+            settings.NewLineOnAttributes = true;
+            settings.ConformanceLevel = ConformanceLevel.Auto;
+            using (XmlWriter writer = XmlWriter.Create("temp.xml", settings))
             {
+                writer.WriteStartDocument();
                 officeManagement.WriteXml(writer);
+                writer.WriteEndDocument();
+            }
+
+            using (StreamWriter file = File.CreateText(@"c:\employee.json"))
+            using (JsonTextWriter writer = new JsonTextWriter(file))
+            {
+                employee.WriteTo(writer);
             }
 
             Console.ReadLine();
 
         }
-        //private static void PopulateEmployeeList(OfficeManagement office)
-        //{
 
-        //    Employee emp = new Employee();
-        //    emp.Name = "Ana";
-        //    emp.Position = EmployeePosition.Intern;
-        //    emp.Capacity = 8;
+        public static string WriteFromObject()
+        {
+            //Create User object.  
+            Employee emp = new Employee();
 
+            //Create a stream to serialize the object to.  
+            MemoryStream ms = new MemoryStream();
 
+            // Serializer the User object to the stream.  
+            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Employee));
+            ser.WriteObject(ms, emp);
+            byte[] json = ms.ToArray();
+            ms.Close();
+            return Encoding.UTF8.GetString(json, 0, json.Length);
+        }
 
-        //}
+        // Deserialize a JSON stream to a User object.  
+        public static Employee ReadToObject(string json)
+        {
+            Employee deserializedUser = new Employee();
+            MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(json));
+            DataContractJsonSerializer ser = new DataContractJsonSerializer(deserializedUser.GetType());
+            deserializedUser = ser.ReadObject(ms) as Employee;
+            ms.Close();
+            return deserializedUser;
+        }
+
         private static void PopulateEmployeeList(OfficeManagement officeManagement)
         {
             var allInformation = File.ReadAllText(@"C:\Users\semida.lucaciu\Downloads\officeDB.txt");
             char[] arr = new char[] { '\r', '\n' };
-            //var result = (from line in allInformation
-            //              let trimmedLine = line.TrimStart(arr)
-            //              select line).ToList();
-            //GetEmployeeFromText(result, officeManagement);
+            
             var employees = allInformation.Split(new string[] { nameof(Employee), "{", "}" }, StringSplitOptions.RemoveEmptyEntries);
             foreach (var record in employees)
             {
@@ -65,10 +94,7 @@ namespace AccesaEmployee
                 if (trimmedRecord.StartsWith(nameof(Project)) || trimmedRecord.Equals("\r\n")) continue;
                 GetEmployeeFromText(trimmedRecord, officeManagement);
             }
-            //var query =
-            //    from n in employees
-            //    where n.Contains("Name:")
-            //    select n.ToUpper();
+            
         }
 
         private static Employee GetEmployeeFromText(string info, OfficeManagement officeMangement)
@@ -100,5 +126,6 @@ namespace AccesaEmployee
                 .TrimStart(adjustedProperty.ToCharArray())
                 .TrimEnd("\r\n".ToCharArray());
         }
+
     }
 }

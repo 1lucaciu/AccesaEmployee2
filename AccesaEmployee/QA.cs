@@ -17,7 +17,7 @@ namespace AccesaEmployee
         {
             base.ReadXml(r);
             //_position = r.ReadElementContentAsString("position", "");
-            _position = (EmployeePosition)Enum.Parse(typeof(EmployeePosition), r.ReadElementContentAsString("position", ""));
+           // _position = (EmployeePosition)Enum.Parse(typeof(EmployeePosition), r.ReadElementContentAsString("position", ""));
             r.ReadStartElement();
 
             if (r.Name == "TestingTools")
@@ -32,7 +32,7 @@ namespace AccesaEmployee
         public override void WriteXml(XmlWriter w)
         {
             base.WriteXml(w);
-            w.WriteElementString($"{EmployeePosition.QA}", _position.ToString());
+            //w.WriteElementString($"{EmployeePosition.QA}", _position.ToString());
             foreach(string tool in _testingTools)
             {
                 w.WriteStartElement(QA.XmlTesting);

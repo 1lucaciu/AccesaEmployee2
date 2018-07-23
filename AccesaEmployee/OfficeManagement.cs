@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,8 +15,14 @@ namespace AccesaEmployee
 
 		public IReadOnlyCollection<Employee> Employees => _employees;
 		public IReadOnlyCollection<Project> Projects => _projects;
-      
-        
+
+        //public void WriteJSON()
+        //{
+        //    MemoryStream stream1 = new MemoryStream();
+        //    DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Employee));
+        //    ser.WriteObject(stream1, p);
+        //}
+
         public void ReadXml(XmlReader r)
         {
             bool isEmpty = r.IsEmptyElement; 
@@ -32,12 +39,14 @@ namespace AccesaEmployee
         }
         public void WriteXml(XmlWriter w)
         {
+            w.WriteStartElement("employees");
             foreach (Employee e in _employees)
             {
-                w.WriteStartElement(Employee.XmlName);
+                //w.WriteStartElement(Employee.XmlName);
                 e.WriteXml(w);
-                w.WriteEndElement();
+                //w.WriteEndElement();
             }
+            w.WriteEndElement();
             foreach (Project s in _projects)
             {
                 w.WriteStartElement(Project.XmlName);

@@ -1,22 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
 namespace AccesaEmployee
-{
+{   [DataContract]
 	public class Employee
 	{
+        [DataMember]
         private  string _name;
+        [DataMember]
         public  EmployeePosition _position;
+        [DataMember]
         private  float _capacity;//max number of hours per day
+        [DataMember]
         private  List<string> _hobbies = new List<string>();
-        public const string XmlName = "employee";
-        public const string XmlHobbies = "hobby";
+
         public Employee() { }
         public Employee(XmlReader r) { ReadXml(r); }
+
+        public const string XmlName = "employee";
+        public const string XmlHobbies = "hobby";
 
         public virtual void ReadXml(XmlReader r)
         { 
@@ -33,20 +41,21 @@ namespace AccesaEmployee
                         Hobbies.Add(r.ReadElementContentAsString("hobby", ""));
                 }
             r.ReadEndElement();
-            //_hobbies = r.ReadElementContentAsString("hobbies", "");
             r.ReadEndElement();
         }
         public virtual void WriteXml(XmlWriter w)
         {
+            w.WriteStartElement("employee");
             w.WriteElementString("name", _name);
             w.WriteElementString("capacity", _capacity.ToString());
-            //w.WriteElementString($"{EmployeePosition.QA}",_position );
+            w.WriteStartElement("hobbies"); 
             foreach (string hobby in _hobbies)
             {
-                w.WriteStartElement(Employee.XmlHobbies);
                 w.WriteElementString("hobby", hobby);
-                w.WriteEndElement();
             }
+            w.WriteEndElement();
+            w.WriteElementString("position", _position.ToString());
+           // w.WriteEndElement();
         }
         public string Name { get { return _name; } set { _name = value; } }
 		public EmployeePosition Position { get { return _position; } set { _position = value; } }
