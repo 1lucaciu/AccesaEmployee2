@@ -43,17 +43,21 @@ namespace AccesaEmployee
                 writer.WriteStartDocument();
                 officeManagement.WriteXml(writer);
                 writer.WriteEndDocument();
+<<<<<<< HEAD
             }
 
             using (StreamWriter file = File.CreateText(@"c:\employee.json"))
             using (JsonTextWriter writer = new JsonTextWriter(file))
             {
                 employee.WriteTo(writer);
+=======
+>>>>>>> e1ecf91d10f387c84cc4f7bdbd6015395509934d
             }
 
             Console.ReadLine();
 
         }
+<<<<<<< HEAD
 
         public static string WriteFromObject()
         {
@@ -82,6 +86,9 @@ namespace AccesaEmployee
             return deserializedUser;
         }
 
+=======
+        
+>>>>>>> e1ecf91d10f387c84cc4f7bdbd6015395509934d
         private static void PopulateEmployeeList(OfficeManagement officeManagement)
         {
             var allInformation = File.ReadAllText(@"C:\Users\semida.lucaciu\Downloads\officeDB.txt");
