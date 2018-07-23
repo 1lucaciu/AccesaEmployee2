@@ -30,7 +30,7 @@ namespace AccesaEmployee
         public override void WriteXml(XmlWriter w)
         {
             base.WriteXml(w);
-            w.WriteElementString($"{EmployeePosition.DEV}", _position.ToString());
+            //w.WriteElementString($"{EmployeePosition.DEV}", _position.ToString());
             foreach (string tech in _technologyStack)
             {
                 w.WriteStartElement(Dev.XmlTehnology);

@@ -33,20 +33,21 @@ namespace AccesaEmployee
                         Hobbies.Add(r.ReadElementContentAsString("hobby", ""));
                 }
             r.ReadEndElement();
-            //_hobbies = r.ReadElementContentAsString("hobbies", "");
             r.ReadEndElement();
         }
         public virtual void WriteXml(XmlWriter w)
         {
+            w.WriteStartElement("employee");
             w.WriteElementString("name", _name);
             w.WriteElementString("capacity", _capacity.ToString());
-            //w.WriteElementString($"{EmployeePosition.QA}",_position );
+            w.WriteStartElement("hobbies"); 
             foreach (string hobby in _hobbies)
             {
-                w.WriteStartElement(Employee.XmlHobbies);
                 w.WriteElementString("hobby", hobby);
-                w.WriteEndElement();
             }
+            w.WriteEndElement();
+            w.WriteElementString("position", _position.ToString());
+           // w.WriteEndElement();
         }
         public string Name { get { return _name; } set { _name = value; } }
 		public EmployeePosition Position { get { return _position; } set { _position = value; } }

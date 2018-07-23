@@ -32,12 +32,14 @@ namespace AccesaEmployee
         }
         public void WriteXml(XmlWriter w)
         {
+            w.WriteStartElement("employees");
             foreach (Employee e in _employees)
             {
-                w.WriteStartElement(Employee.XmlName);
+                //w.WriteStartElement(Employee.XmlName);
                 e.WriteXml(w);
-                w.WriteEndElement();
+                //w.WriteEndElement();
             }
+            w.WriteEndElement();
             foreach (Project s in _projects)
             {
                 w.WriteStartElement(Project.XmlName);

@@ -29,9 +29,11 @@ namespace AccesaEmployee
         public override void WriteXml(XmlWriter w)
         {
             base.WriteXml(w);
-            w.WriteElementString($"{EmployeePosition.Intern}", _position.ToString());
+            
+            //w.WriteElementString("position", EmployeePosition.Intern.ToString());
             w.WriteElementString("universityName", _universityName);
             w.WriteElementString("yearOfStudy",_yearOfStudy.ToString());
+            w.WriteEndElement();
         }
         public Intern(string name, float capacity)
             : base(name, EmployeePosition.Intern, capacity)
