@@ -19,7 +19,7 @@ namespace AccesaEmployee
         public Employee(XmlReader r) { ReadXml(r); }
 
         public virtual void ReadXml(XmlReader r)
-        {
+        { 
             r.ReadStartElement();
             _name = r.ReadElementContentAsString("name", "");
             //_position = (EmployeePosition)Enum.Parse(typeof(EmployeePosition), r.ReadElementContentAsString("position", ""));
