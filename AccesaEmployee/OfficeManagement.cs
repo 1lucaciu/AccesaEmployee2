@@ -5,16 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using Newtonsoft.Json;
 
 namespace AccesaEmployee
 {
-	public class OfficeManagement
-	{
-		private readonly List<Employee> _employees = new List<Employee>();
-		private readonly List<Project> _projects = new List<Project>();
+    public class OfficeManagement
+    {
+        private readonly List<Employee> _employees = new List<Employee>();
+        private readonly List<Project> _projects = new List<Project>();
 
-		public IReadOnlyCollection<Employee> Employees => _employees;
-		public IReadOnlyCollection<Project> Projects => _projects;
+        public IReadOnlyCollection<Employee> Employees => _employees;
+        public IReadOnlyCollection<Project> Projects => _projects;
 
         //public void WriteJSON()
         //{
@@ -23,11 +24,42 @@ namespace AccesaEmployee
         //    ser.WriteObject(stream1, p);
         //}
 
+        //public void SerializeJSON()
+        //{
+
+        //    ////Create User object.  
+        //    Employee emp = new Employee();
+
+        //    string content = JsonConvert.SerializeObject(emp);
+        //    File.WriteAllText("office.json", content);
+
+        ////Create a stream to serialize the object to.  
+        //MemoryStream ms = new MemoryStream();
+
+        //// Serializer the User object to the stream.  
+        //DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Employee));
+        //ser.WriteObject(ms, emp);
+        //byte[] json = ms.ToArray();
+        //ms.Close();
+        //return Encoding.UTF8.GetString(json, 0, json.Length);
+        //}
+
+        // Deserialize a JSON stream to a User object.  
+        //public static Employee ReadToObject(string json)
+        //{
+        //    Employee deserializedUser = new Employee();
+        //    MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(json));
+        //    DataContractJsonSerializer ser = new DataContractJsonSerializer(deserializedUser.GetType());
+        //    deserializedUser = ser.ReadObject(ms) as Employee;
+        //    ms.Close();
+        //    return deserializedUser;
+        //}
+
         public void ReadXml(XmlReader r)
         {
-            bool isEmpty = r.IsEmptyElement; 
-            r.ReadStartElement(); 
-            if (isEmpty) return; 
+            bool isEmpty = r.IsEmptyElement;
+            r.ReadStartElement();
+            if (isEmpty) return;
             while (r.NodeType == XmlNodeType.Element)
             {
                 if (r.Name == Employee.XmlName) _employees.Add(new Employee(r));
@@ -54,6 +86,9 @@ namespace AccesaEmployee
                 w.WriteEndElement();
             }
         }
+
+
+
         public Employee AddEmployee(string name, EmployeePosition position, float capacity, List<string> hobbies)
         {
             Employee employee;
@@ -125,3 +160,4 @@ namespace AccesaEmployee
         }
     }
 }
+

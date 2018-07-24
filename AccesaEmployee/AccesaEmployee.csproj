@@ -47,9 +47,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataContractAttribute.cs" />
-    <Compile Include="DataContractJsonSerializer.cs" />
-    <Compile Include="DataMemberAttribute.cs" />
     <Compile Include="Dev.cs" />
     <Compile Include="Employee.cs" />
     <Compile Include="EmployeePosition.cs" />

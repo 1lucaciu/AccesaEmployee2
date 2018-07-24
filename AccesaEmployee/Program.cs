@@ -13,7 +13,6 @@ namespace AccesaEmployee
 {
     class Program
     {
-        private static object videogameRatings;
 
         static void Main(string[] args)
         {
@@ -43,52 +42,26 @@ namespace AccesaEmployee
                 writer.WriteStartDocument();
                 officeManagement.WriteXml(writer);
                 writer.WriteEndDocument();
-<<<<<<< HEAD
+
             }
 
-            using (StreamWriter file = File.CreateText(@"c:\employee.json"))
-            using (JsonTextWriter writer = new JsonTextWriter(file))
-            {
-                employee.WriteTo(writer);
-=======
->>>>>>> e1ecf91d10f387c84cc4f7bdbd6015395509934d
-            }
+            string content = JsonConvert.SerializeObject(officeManagement);
+            File.WriteAllText("office.json", content);
+
+            //using (StreamWriter file = File.CreateText(@"c:\employee.json"))
+            //using (JsonTextWriter writer = new JsonTextWriter())
+            //{
+            //officeManagement.SerializeJSON();
+
+
+            //}
 
             Console.ReadLine();
 
         }
-<<<<<<< HEAD
 
-        public static string WriteFromObject()
-        {
-            //Create User object.  
-            Employee emp = new Employee();
-
-            //Create a stream to serialize the object to.  
-            MemoryStream ms = new MemoryStream();
-
-            // Serializer the User object to the stream.  
-            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Employee));
-            ser.WriteObject(ms, emp);
-            byte[] json = ms.ToArray();
-            ms.Close();
-            return Encoding.UTF8.GetString(json, 0, json.Length);
-        }
-
-        // Deserialize a JSON stream to a User object.  
-        public static Employee ReadToObject(string json)
-        {
-            Employee deserializedUser = new Employee();
-            MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(json));
-            DataContractJsonSerializer ser = new DataContractJsonSerializer(deserializedUser.GetType());
-            deserializedUser = ser.ReadObject(ms) as Employee;
-            ms.Close();
-            return deserializedUser;
-        }
-
-=======
         
->>>>>>> e1ecf91d10f387c84cc4f7bdbd6015395509934d
+
         private static void PopulateEmployeeList(OfficeManagement officeManagement)
         {
             var allInformation = File.ReadAllText(@"C:\Users\semida.lucaciu\Downloads\officeDB.txt");
