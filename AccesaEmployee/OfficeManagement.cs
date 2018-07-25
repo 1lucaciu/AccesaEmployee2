@@ -1,91 +1,62 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
-using Newtonsoft.Json;
 
 namespace AccesaEmployee
 {
+    [DataContract]
     public class OfficeManagement
     {
+        [DataMember(Name ="Employees")]
         private readonly List<Employee> _employees = new List<Employee>();
+        [DataMember(Name = "Projects")]
         private readonly List<Project> _projects = new List<Project>();
 
+        
         public IReadOnlyCollection<Employee> Employees => _employees;
+        
         public IReadOnlyCollection<Project> Projects => _projects;
 
-        //public void WriteJSON()
+
+        //public void ReadXml(XmlReader r)
         //{
-        //    MemoryStream stream1 = new MemoryStream();
-        //    DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Employee));
-        //    ser.WriteObject(stream1, p);
+        //    bool isEmpty = r.IsEmptyElement;
+        //    r.ReadStartElement();
+        //    if (isEmpty) return;
+        //    while (r.NodeType == XmlNodeType.Element)
+        //    {
+        //        if (r.Name == Employee.XmlName) _employees.Add(new Employee(r));
+        //        else if (r.Name == Project.XmlName) _projects.Add(new Project(r));
+        //        else
+        //            throw new XmlException("Unexpected node: " + r.Name);
+        //    }
+        //    r.ReadEndElement();
         //}
-
-        //public void SerializeJSON()
+        //public void WriteXml(XmlWriter w)
         //{
-
-        //    ////Create User object.  
-        //    Employee emp = new Employee();
-
-        //    string content = JsonConvert.SerializeObject(emp);
-        //    File.WriteAllText("office.json", content);
-
-        ////Create a stream to serialize the object to.  
-        //MemoryStream ms = new MemoryStream();
-
-        //// Serializer the User object to the stream.  
-        //DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Employee));
-        //ser.WriteObject(ms, emp);
-        //byte[] json = ms.ToArray();
-        //ms.Close();
-        //return Encoding.UTF8.GetString(json, 0, json.Length);
+        //    w.WriteStartElement("employees");
+        //    foreach (Employee e in _employees)
+        //    {
+        //        //w.WriteStartElement(Employee.XmlName);
+        //        e.WriteXml(w);
+        //        //w.WriteEndElement();
+        //    }
+        //    w.WriteEndElement();
+        //    foreach (Project s in _projects)
+        //    {
+        //        w.WriteStartElement(Project.XmlName);
+        //        s.WriteXml(w);
+        //        w.WriteEndElement();
+        //    }
         //}
-
-        // Deserialize a JSON stream to a User object.  
-        //public static Employee ReadToObject(string json)
-        //{
-        //    Employee deserializedUser = new Employee();
-        //    MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(json));
-        //    DataContractJsonSerializer ser = new DataContractJsonSerializer(deserializedUser.GetType());
-        //    deserializedUser = ser.ReadObject(ms) as Employee;
-        //    ms.Close();
-        //    return deserializedUser;
-        //}
-
-        public void ReadXml(XmlReader r)
-        {
-            bool isEmpty = r.IsEmptyElement;
-            r.ReadStartElement();
-            if (isEmpty) return;
-            while (r.NodeType == XmlNodeType.Element)
-            {
-                if (r.Name == Employee.XmlName) _employees.Add(new Employee(r));
-                else if (r.Name == Project.XmlName) _projects.Add(new Project(r));
-                else
-                    throw new XmlException("Unexpected node: " + r.Name);
-            }
-            r.ReadEndElement();
-        }
-        public void WriteXml(XmlWriter w)
-        {
-            w.WriteStartElement("employees");
-            foreach (Employee e in _employees)
-            {
-                //w.WriteStartElement(Employee.XmlName);
-                e.WriteXml(w);
-                //w.WriteEndElement();
-            }
-            w.WriteEndElement();
-            foreach (Project s in _projects)
-            {
-                w.WriteStartElement(Project.XmlName);
-                s.WriteXml(w);
-                w.WriteEndElement();
-            }
-        }
 
 
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,12 +18,23 @@ namespace AccesaEmployee
         static void Main(string[] args)
         {
             OfficeManagement officeManagement = new OfficeManagement();
-            // using (XmlReader reader = XmlReader.Create("Office.xml")) ;
+
+            PopulateEmployeeList(officeManagement);
+            officeManagement.DisplayAllEmployees();
+
+            var ds = new DataContractSerializer(typeof(OfficeManagement));
+            XmlWriterSettings settings = new XmlWriterSettings() {Indent = true };
+            using (XmlWriter w = XmlWriter.Create("office.xml", settings))
+            ds.WriteObject(w, officeManagement);
+
+            var office = new OfficeManagement();
+            using (Stream s = File.OpenRead("office.xml"))
+            office = (OfficeManagement)ds.ReadObject(s);
 
             //POPULEAZA LISTA DE ANGAJATI SI PROIECTE SI APOI CHEAMA WRITEXML
 
 
-            
+
             //var officeManagement = new OfficeManagement();
             /*officeManagement.DisplayAllProjects();
 
@@ -30,37 +42,29 @@ namespace AccesaEmployee
             officeManagement.DisplayAllEmployees();
             officeManagement.DisplayAllProjects();*/
 
-            PopulateEmployeeList(officeManagement);
-            officeManagement.DisplayAllEmployees();
-            XmlWriterSettings settings = new XmlWriterSettings();
-            settings.Indent = true;
-            settings.OmitXmlDeclaration = true;
-            settings.NewLineOnAttributes = true;
-            settings.ConformanceLevel = ConformanceLevel.Auto;
-            using (XmlWriter writer = XmlWriter.Create("temp.xml", settings))
-            {
-                writer.WriteStartDocument();
-                officeManagement.WriteXml(writer);
-                writer.WriteEndDocument();
 
-            }
+
+            //XmlWriterSettings settings = new XmlWriterSettings();
+            //settings.Indent = true;
+            //settings.OmitXmlDeclaration = true;
+            //settings.NewLineOnAttributes = true;
+            //settings.ConformanceLevel = ConformanceLevel.Auto;
+            //using (XmlWriter writer = XmlWriter.Create("temp.xml", settings))
+            //{
+            //    writer.WriteStartDocument();
+            //    officeManagement.WriteXml(writer);
+            //    writer.WriteEndDocument();
+
+            //}
 
             string content = JsonConvert.SerializeObject(officeManagement);
             File.WriteAllText("office.json", content);
-
-            //using (StreamWriter file = File.CreateText(@"c:\employee.json"))
-            //using (JsonTextWriter writer = new JsonTextWriter())
-            //{
-            //officeManagement.SerializeJSON();
-
-
-            //}
 
             Console.ReadLine();
 
         }
 
-        
+       
 
         private static void PopulateEmployeeList(OfficeManagement officeManagement)
         {

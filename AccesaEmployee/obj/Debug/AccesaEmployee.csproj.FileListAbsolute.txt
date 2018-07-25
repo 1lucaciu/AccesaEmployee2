@@ -36,3 +36,13 @@ C:\Users\semida.lucaciu\Downloads\AccesaEmployeeJSON\AccesaEmployee\bin\Debug\Ac
 C:\Users\semida.lucaciu\Downloads\AccesaEmployeeJSON\AccesaEmployee\bin\Debug\Newtonsoft.Json.dll
 C:\Users\semida.lucaciu\Downloads\AccesaEmployeeJSON\AccesaEmployee\bin\Debug\Newtonsoft.Json.xml
 C:\Users\semida.lucaciu\Downloads\AccesaEmployeeJSON\AccesaEmployee\obj\Debug\AccesaEmployee.csproj.CopyComplete
+C:\Users\semida.lucaciu\Downloads\AccesaEmployeeJSONRezerva\AccesaEmployee\bin\Debug\AccesaEmployee.exe.config
+C:\Users\semida.lucaciu\Downloads\AccesaEmployeeJSONRezerva\AccesaEmployee\bin\Debug\AccesaEmployee.exe
+C:\Users\semida.lucaciu\Downloads\AccesaEmployeeJSONRezerva\AccesaEmployee\bin\Debug\AccesaEmployee.pdb
+C:\Users\semida.lucaciu\Downloads\AccesaEmployeeJSONRezerva\AccesaEmployee\bin\Debug\Newtonsoft.Json.dll
+C:\Users\semida.lucaciu\Downloads\AccesaEmployeeJSONRezerva\AccesaEmployee\bin\Debug\Newtonsoft.Json.xml
+C:\Users\semida.lucaciu\Downloads\AccesaEmployeeJSONRezerva\AccesaEmployee\obj\Debug\AccesaEmployee.csprojAssemblyReference.cache
+C:\Users\semida.lucaciu\Downloads\AccesaEmployeeJSONRezerva\AccesaEmployee\obj\Debug\AccesaEmployee.csproj.CoreCompileInputs.cache
+C:\Users\semida.lucaciu\Downloads\AccesaEmployeeJSONRezerva\AccesaEmployee\obj\Debug\AccesaEmployee.csproj.CopyComplete
+C:\Users\semida.lucaciu\Downloads\AccesaEmployeeJSONRezerva\AccesaEmployee\obj\Debug\AccesaEmployee.exe
+C:\Users\semida.lucaciu\Downloads\AccesaEmployeeJSONRezerva\AccesaEmployee\obj\Debug\AccesaEmployee.pdb

@@ -1,22 +1,36 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
 namespace AccesaEmployee
 {
+    [DataContract]
     public class Project
     {
+        [DataMember(Name ="ProjectName")]
         private string _name;
+        [DataMember(Name ="Description")]
         private string _description;
+        [DataMember(Name ="DeadLine")]
         private DateTime _deadLine;
+        [DataMember(Name ="Team")]
         private Dictionary<Employee, float> _team = new Dictionary<Employee, float>();
 
+
         public string Name => _name;
+
         public string Description => _description;
+
         public DateTime DeadLine => _deadLine;
+
         public IReadOnlyDictionary<Employee, float> Team => _team;
 
         public const string XmlName = "projects";
